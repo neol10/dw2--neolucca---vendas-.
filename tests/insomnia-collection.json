@@ -1,0 +1,523 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2024-01-15T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "req_auth_login",
+      "parentId": "fld_auth",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "url": "{{ _.baseUrl }}/login",
+      "name": "Login Admin",
+      "description": "Autentica como administrador e obtém token JWT",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/x-www-form-urlencoded",
+        "params": [
+          {
+            "name": "username",
+            "value": "admin"
+          },
+          {
+            "name": "password",
+            "value": "admin123"
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/x-www-form-urlencoded"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705276800000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_produtos_list",
+      "parentId": "fld_produtos",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "url": "{{ _.baseUrl }}/produtos",
+      "name": "Listar Produtos",
+      "description": "Lista produtos com paginação e filtros",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "name": "page",
+          "value": "1"
+        },
+        {
+          "name": "limit",
+          "value": "10"
+        },
+        {
+          "name": "search",
+          "value": ""
+        },
+        {
+          "name": "categoria",
+          "value": ""
+        },
+        {
+          "name": "sort",
+          "value": "nome-asc"
+        }
+      ],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1705276700000,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_produtos_create",
+      "parentId": "fld_produtos",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "url": "{{ _.baseUrl }}/produtos",
+      "name": "Criar Produto",
+      "description": "Cria um novo produto (requer admin)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Produto Teste Insomnia\",\n  \"descricao\": \"Produto criado via Insomnia para teste\",\n  \"preco\": 49.99,\n  \"estoque\": 25,\n  \"categoria\": \"material_escolar\",\n  \"sku\": \"INS-TEST-001\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705276600000,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_produtos_update",
+      "parentId": "fld_produtos",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "url": "{{ _.baseUrl }}/produtos/{{ _.produtoId }}",
+      "name": "Atualizar Produto",
+      "description": "Atualiza produto existente (requer admin)",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Produto Teste Insomnia Atualizado\",\n  \"descricao\": \"Produto atualizado via Insomnia\",\n  \"preco\": 59.99,\n  \"estoque\": 15,\n  \"categoria\": \"tecnologia\",\n  \"sku\": \"INS-TEST-001-UPD\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705276500000,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_produtos_export_csv",
+      "parentId": "fld_produtos",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "url": "{{ _.baseUrl }}/produtos/export/csv",
+      "name": "Exportar CSV",
+      "description": "Exporta produtos em formato CSV (requer admin)",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "name": "search",
+          "value": ""
+        },
+        {
+          "name": "categoria",
+          "value": ""
+        },
+        {
+          "name": "sort",
+          "value": "nome-asc"
+        }
+      ],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705276400000,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_produtos_export_json",
+      "parentId": "fld_produtos",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "url": "{{ _.baseUrl }}/produtos/export/json",
+      "name": "Exportar JSON",
+      "description": "Exporta produtos em formato JSON (requer admin)",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "name": "search",
+          "value": ""
+        },
+        {
+          "name": "categoria",
+          "value": ""
+        },
+        {
+          "name": "sort",
+          "value": "nome-asc"
+        }
+      ],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705276300000,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_carrinho_confirmar",
+      "parentId": "fld_produtos",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "url": "{{ _.baseUrl }}/carrinho/confirmar",
+      "name": "Confirmar Pedido",
+      "description": "Confirma pedido do carrinho com cupom",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"itens\": [\n    {\n      \"produto_id\": 1,\n      \"quantidade\": 2\n    },\n    {\n      \"produto_id\": 2,\n      \"quantidade\": 1\n    }\n  ],\n  \"cupom\": \"ALUNO10\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705276200000,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_livros_list",
+      "parentId": "fld_biblioteca",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "url": "{{ _.baseUrl }}/livros",
+      "name": "Listar Livros",
+      "description": "Lista livros da biblioteca com filtros",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "name": "page",
+          "value": "1"
+        },
+        {
+          "name": "limit",
+          "value": "10"
+        },
+        {
+          "name": "search",
+          "value": ""
+        },
+        {
+          "name": "categoria",
+          "value": ""
+        },
+        {
+          "name": "disponivel",
+          "value": ""
+        }
+      ],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1705276100000,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_livros_create",
+      "parentId": "fld_biblioteca",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "url": "{{ _.baseUrl }}/livros",
+      "name": "Criar Livro",
+      "description": "Adiciona novo livro à biblioteca (requer admin)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"titulo\": \"Livro Teste Insomnia\",\n  \"autor\": \"Autor Teste\",\n  \"isbn\": \"978-1234567890\",\n  \"ano_publicacao\": 2024,\n  \"categoria\": \"tecnologia\",\n  \"disponivel\": true\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705276000000,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_emprestimos_create",
+      "parentId": "fld_biblioteca",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "url": "{{ _.baseUrl }}/emprestimos",
+      "name": "Criar Empréstimo",
+      "description": "Registra empréstimo de livro",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"livro_id\": 1,\n  \"nome_usuario\": \"João Silva\",\n  \"email_usuario\": \"joao@exemplo.com\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705275900000,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_turmas_list",
+      "parentId": "fld_escola",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "url": "{{ _.baseUrl }}/turmas",
+      "name": "Listar Turmas",
+      "description": "Lista todas as turmas da escola",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1705275800000,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_turmas_create",
+      "parentId": "fld_escola",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "url": "{{ _.baseUrl }}/turmas",
+      "name": "Criar Turma",
+      "description": "Cria nova turma (requer admin)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Turma Teste Insomnia\",\n  \"capacidade\": 25,\n  \"ano_letivo\": 2024\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705275700000,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_alunos_list",
+      "parentId": "fld_escola",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "url": "{{ _.baseUrl }}/alunos",
+      "name": "Listar Alunos",
+      "description": "Lista todos os alunos com filtros",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "name": "turma_id",
+          "value": ""
+        },
+        {
+          "name": "status",
+          "value": ""
+        },
+        {
+          "name": "search",
+          "value": ""
+        }
+      ],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1705275600000,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_alunos_create",
+      "parentId": "fld_escola",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "url": "{{ _.baseUrl }}/alunos",
+      "name": "Criar Aluno",
+      "description": "Cadastra novo aluno (requer admin)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Aluno Teste Insomnia\",\n  \"email\": \"aluno.teste@escola.com\",\n  \"data_nascimento\": \"2010-05-15\",\n  \"turma_id\": null\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705275500000,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "fld_auth",
+      "parentId": "wrk_main",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "name": "🔐 Autenticação",
+      "description": "Endpoints de login e registro",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1705276800000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_produtos",
+      "parentId": "wrk_main",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "name": "🛍️ Produtos",
+      "description": "CRUD de produtos e carrinho",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1705276700000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_biblioteca",
+      "parentId": "wrk_main",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "name": "📚 Biblioteca",
+      "description": "Livros e empréstimos",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1705276600000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_escola",
+      "parentId": "wrk_main",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "name": "🎓 Escola",
+      "description": "Turmas e alunos",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1705276500000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_main",
+      "parentId": null,
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "name": "Loja Escolar API",
+      "description": "Coleção completa de testes para a API da Loja Escolar",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_base",
+      "parentId": "wrk_main",
+      "modified": 1705276800000,
+      "created": 1705276800000,
+      "name": "Base Environment",
+      "data": {
+        "baseUrl": "http://localhost:8000",
+        "token": "",
+        "produtoId": "",
+        "livroId": "",
+        "turmaId": "",
+        "alunoId": ""
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseUrl",
+          "token",
+          "produtoId",
+          "livroId",
+          "turmaId",
+          "alunoId"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1705276800000,
+      "_type": "environment"
+    }
+  ]
+}

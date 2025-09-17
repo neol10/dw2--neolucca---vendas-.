@@ -1,0 +1,21 @@
+{
+  "name": "product-sales-assignment",
+  "version": "1.0.0",
+  "description": "Backend for product sales assignment using FastAPI and SQLAlchemy.",
+  "main": "src/app.py",
+  "scripts": {
+    "start": "uvicorn src.app:app --reload",
+    "test": "pytest"
+  },
+  "dependencies": {
+    "fastapi": "^0.68.0",
+    "uvicorn": "^0.15.0",
+    "sqlalchemy": "^1.4.22",
+    "databases": "^0.5.5"
+  },
+  "devDependencies": {
+    "pytest": "^6.2.4"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}

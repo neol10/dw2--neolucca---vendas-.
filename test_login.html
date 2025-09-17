@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Login</title>
+</head>
+<body>
+    <h1>Teste de Login - NEO Loja Escolar</h1>
+    
+    <div>
+        <h2>Teste de Conexão com Backend</h2>
+        <button onclick="testarConexao()">Testar Conexão</button>
+        <div id="resultado-conexao"></div>
+    </div>
+
+    <div>
+        <h2>Teste de Login</h2>
+        <form onsubmit="testarLogin(event)">
+            <div>
+                <label>Email:</label>
+                <input type="email" id="email" value="admin@neo.com" required>
+            </div>
+            <div>
+                <label>Senha:</label>
+                <input type="password" id="senha" value="admin123" required>
+            </div>
+            <button type="submit">Fazer Login</button>
+        </form>
+        <div id="resultado-login"></div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://127.0.0.1:8000';
+
+        async function testarConexao() {
+            const resultado = document.getElementById('resultado-conexao');
+            resultado.innerHTML = 'Testando conexão...';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/`);
+                if (response.ok) {
+                    const data = await response.json();
+                    resultado.innerHTML = `✅ Backend conectado: ${JSON.stringify(data)}`;
+                } else {
+                    resultado.innerHTML = `❌ Erro na conexão: ${response.status}`;
+                }
+            } catch (error) {
+                resultado.innerHTML = `❌ Erro de rede: ${error.message}`;
+            }
+        }
+
+        async function testarLogin(event) {
+            event.preventDefault();
+            const resultado = document.getElementById('resultado-login');
+            resultado.innerHTML = 'Fazendo login...';
+
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+
+            const formData = new FormData();
+            formData.append('username', email);
+            formData.append('password', senha);
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/token`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    resultado.innerHTML = `✅ Login bem-sucedido! Token: ${data.access_token.substring(0, 20)}...`;
+                    
+                    // Testar busca do usuário
+                    const userResponse = await fetch(`${API_BASE_URL}/usuarios/me/`, {
+                        headers: {
+                            'Authorization': `Bearer ${data.access_token}`
+                        }
+                    });
+                    
+                    if (userResponse.ok) {
+                        const userData = await userResponse.json();
+                        resultado.innerHTML += `<br>✅ Dados do usuário: ${JSON.stringify(userData)}`;
+                    } else {
+                        resultado.innerHTML += `<br>❌ Erro ao buscar usuário: ${userResponse.status}`;
+                    }
+                } else {
+                    const errorData = await response.json();
+                    resultado.innerHTML = `❌ Erro no login: ${response.status} - ${JSON.stringify(errorData)}`;
+                }
+            } catch (error) {
+                resultado.innerHTML = `❌ Erro de rede: ${error.message}`;
+            }
+        }
+
+        // Testar conexão automaticamente
+        window.onload = () => {
+            testarConexao();
+        };
+    </script>
+</body>
+</html>

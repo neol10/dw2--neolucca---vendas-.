@@ -1,0 +1,562 @@
+{
+  "clientName": "Thunder Client",
+  "collectionName": "Loja Escolar API Tests",
+  "collectionId": "loja-escolar-tests",
+  "dateExported": "2024-01-15T00:00:00.000Z",
+  "version": "1.2",
+  "folders": [
+    {
+      "id": "auth-folder",
+      "name": "🔐 Autenticação",
+      "containerId": "",
+      "created": "2024-01-15T00:00:00.000Z",
+      "sortNum": 10000
+    },
+    {
+      "id": "produtos-folder", 
+      "name": "🛍️ Produtos",
+      "containerId": "",
+      "created": "2024-01-15T00:00:00.000Z",
+      "sortNum": 20000
+    },
+    {
+      "id": "biblioteca-folder",
+      "name": "📚 Biblioteca", 
+      "containerId": "",
+      "created": "2024-01-15T00:00:00.000Z",
+      "sortNum": 30000
+    },
+    {
+      "id": "escola-folder",
+      "name": "🎓 Escola",
+      "containerId": "",
+      "created": "2024-01-15T00:00:00.000Z", 
+      "sortNum": 40000
+    }
+  ],
+  "requests": [
+    {
+      "id": "login-admin",
+      "name": "Login Admin",
+      "url": "{{baseUrl}}/login",
+      "method": "POST",
+      "sortNum": 10000,
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-01-15T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/x-www-form-urlencoded"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "formencoded",
+        "raw": "",
+        "form": [
+          {
+            "name": "username",
+            "value": "admin"
+          },
+          {
+            "name": "password", 
+            "value": "admin123"
+          }
+        ]
+      },
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.access_token",
+          "action": "setto",
+          "value": "{{token}}"
+        },
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.access_token",
+          "action": "istype",
+          "value": "string"
+        }
+      ],
+      "containerId": "auth-folder"
+    },
+    {
+      "id": "register-user",
+      "name": "Registrar Usuário",
+      "url": "{{baseUrl}}/register",
+      "method": "POST",
+      "sortNum": 10100,
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-01-15T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"nome\": \"Usuário Teste\",\n  \"email\": \"teste@exemplo.com\",\n  \"senha\": \"senha123\"\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "201"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.message",
+          "action": "contains",
+          "value": "criado"
+        }
+      ],
+      "containerId": "auth-folder"
+    },
+    {
+      "id": "get-produtos",
+      "name": "Listar Produtos",
+      "url": "{{baseUrl}}/produtos",
+      "method": "GET",
+      "sortNum": 20000,
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-01-15T00:00:00.000Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "page",
+          "value": "1",
+          "isPath": false
+        },
+        {
+          "name": "limit",
+          "value": "10",
+          "isPath": false
+        }
+      ],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.produtos",
+          "action": "istype",
+          "value": "array"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.total",
+          "action": "istype",
+          "value": "number"
+        }
+      ],
+      "containerId": "produtos-folder"
+    },
+    {
+      "id": "create-produto",
+      "name": "Criar Produto",
+      "url": "{{baseUrl}}/produtos",
+      "method": "POST",
+      "sortNum": 20100,
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-01-15T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"nome\": \"Produto Teste API\",\n  \"descricao\": \"Produto criado via API para teste\",\n  \"preco\": 29.99,\n  \"estoque\": 100,\n  \"categoria\": \"tecnologia\",\n  \"sku\": \"TEST-API-001\"\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "201"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.id",
+          "action": "istype",
+          "value": "number"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.id",
+          "action": "setto",
+          "value": "{{produtoId}}"
+        }
+      ],
+      "containerId": "produtos-folder"
+    },
+    {
+      "id": "update-produto",
+      "name": "Atualizar Produto",
+      "url": "{{baseUrl}}/produtos/{{produtoId}}",
+      "method": "PUT",
+      "sortNum": 20200,
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-01-15T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"nome\": \"Produto Teste API Atualizado\",\n  \"descricao\": \"Produto atualizado via API\",\n  \"preco\": 39.99,\n  \"estoque\": 50,\n  \"categoria\": \"tecnologia\",\n  \"sku\": \"TEST-API-001-UPD\"\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.nome",
+          "action": "contains",
+          "value": "Atualizado"
+        }
+      ],
+      "containerId": "produtos-folder"
+    },
+    {
+      "id": "export-csv",
+      "name": "Exportar Produtos CSV",
+      "url": "{{baseUrl}}/produtos/export/csv",
+      "method": "GET",
+      "sortNum": 20300,
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-01-15T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ],
+      "params": [
+        {
+          "name": "search",
+          "value": "",
+          "isPath": false
+        },
+        {
+          "name": "categoria",
+          "value": "",
+          "isPath": false
+        },
+        {
+          "name": "sort",
+          "value": "nome-asc",
+          "isPath": false
+        }
+      ],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "res-header",
+          "custom": "content-type",
+          "action": "contains",
+          "value": "text/csv"
+        }
+      ],
+      "containerId": "produtos-folder"
+    },
+    {
+      "id": "export-json",
+      "name": "Exportar Produtos JSON",
+      "url": "{{baseUrl}}/produtos/export/json",
+      "method": "GET",
+      "sortNum": 20400,
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-01-15T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "res-header",
+          "custom": "content-type",
+          "action": "contains",
+          "value": "application/json"
+        }
+      ],
+      "containerId": "produtos-folder"
+    },
+    {
+      "id": "delete-produto",
+      "name": "Deletar Produto",
+      "url": "{{baseUrl}}/produtos/{{produtoId}}",
+      "method": "DELETE",
+      "sortNum": 20500,
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-01-15T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.message",
+          "action": "contains",
+          "value": "deletado"
+        }
+      ],
+      "containerId": "produtos-folder"
+    },
+    {
+      "id": "get-livros",
+      "name": "Listar Livros",
+      "url": "{{baseUrl}}/livros",
+      "method": "GET",
+      "sortNum": 30000,
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-01-15T00:00:00.000Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "page",
+          "value": "1",
+          "isPath": false
+        },
+        {
+          "name": "limit",
+          "value": "10",
+          "isPath": false
+        }
+      ],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.livros",
+          "action": "istype",
+          "value": "array"
+        }
+      ],
+      "containerId": "biblioteca-folder"
+    },
+    {
+      "id": "create-livro",
+      "name": "Criar Livro",
+      "url": "{{baseUrl}}/livros",
+      "method": "POST",
+      "sortNum": 30100,
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-01-15T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"titulo\": \"Livro Teste API\",\n  \"autor\": \"Autor Teste\",\n  \"isbn\": \"978-0000000000\",\n  \"ano_publicacao\": 2024,\n  \"categoria\": \"tecnologia\",\n  \"disponivel\": true\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "201"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.id",
+          "action": "setto",
+          "value": "{{livroId}}"
+        }
+      ],
+      "containerId": "biblioteca-folder"
+    },
+    {
+      "id": "get-turmas",
+      "name": "Listar Turmas",
+      "url": "{{baseUrl}}/turmas",
+      "method": "GET",
+      "sortNum": 40000,
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-01-15T00:00:00.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json",
+          "action": "istype",
+          "value": "array"
+        }
+      ],
+      "containerId": "escola-folder"
+    },
+    {
+      "id": "create-turma",
+      "name": "Criar Turma",
+      "url": "{{baseUrl}}/turmas",
+      "method": "POST",
+      "sortNum": 40100,
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-01-15T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"nome\": \"Turma Teste API\",\n  \"capacidade\": 30,\n  \"ano_letivo\": 2024\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "201"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.id",
+          "action": "setto",
+          "value": "{{turmaId}}"
+        }
+      ],
+      "containerId": "escola-folder"
+    },
+    {
+      "id": "get-alunos",
+      "name": "Listar Alunos",
+      "url": "{{baseUrl}}/alunos",
+      "method": "GET",
+      "sortNum": 40200,
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-01-15T00:00:00.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json",
+          "action": "istype",
+          "value": "array"
+        }
+      ],
+      "containerId": "escola-folder"
+    }
+  ],
+  "environments": [
+    {
+      "id": "env-local",
+      "name": "Local Development",
+      "default": true,
+      "data": [
+        {
+          "name": "baseUrl",
+          "value": "http://localhost:8000"
+        },
+        {
+          "name": "token",
+          "value": ""
+        },
+        {
+          "name": "produtoId",
+          "value": ""
+        },
+        {
+          "name": "livroId",
+          "value": ""
+        },
+        {
+          "name": "turmaId",
+          "value": ""
+        }
+      ]
+    }
+  ]
+}
