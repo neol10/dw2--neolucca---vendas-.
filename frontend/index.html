@@ -3,246 +3,258 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loja Escolar - Sistema Completo de Vendas, Biblioteca e Escola</title>
-  <meta name="description" content="Sistema integrado para loja escolar com vendas de produtos, biblioteca de livros e gestão de turmas e alunos">
+  <title>Loja Escolar - Vendas</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="header">
-    <div class="container">
-      <div class="logo">🎓 Loja Escolar</div>
-      <div class="header-actions">
-        <div class="search-box">
-          <input id="searchInput" type="text" placeholder="Buscar produtos..." aria-label="Campo de busca de produtos" />
-          <button type="submit" aria-label="Executar busca">🔍</button>
-        </div>  
-        <button id="searchBtn" aria-label="Buscar">🔎</button>
-        <button id="toggleTheme" title="Alternar tema" aria-label="Alternar entre tema claro e escuro" tabindex="0">🌙</button>
-        <button id="bibliotecaBtn" class="biblioteca-btn" aria-label="Acessar seção da biblioteca" tabindex="0">📚 Biblioteca</button>
-        <button id="escolaBtn" class="escola-btn" aria-label="Acessar seção da escola" tabindex="0">🎓 Escola</button>
-        <button id="loginBtn" class="login-btn" aria-label="Fazer login no sistema" tabindex="0">Entrar</button>
-        <button id="adminBtn" class="admin-btn" style="display: none;" aria-label="Painel administrativo" tabindex="0">Admin</button>
-        <button id="cartBtn" class="cart-btn" aria-label="Abrir carrinho de compras" tabindex="0">Carrinho <span id="cartBadge" class="cart-badge" aria-label="Itens no carrinho">0</span></button>
-        <button id="userMenuBtn" class="user-menu-btn" style="display: none;">
-          <span id="userMenuName"></span>
+
+  <!-- Header -->
+  <header>
+    <div class="header-left">
+      <h1>Loja Escolar</h1>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#" class="active">Início</a></li>
+          <li><a href="#">Produtos</a></li>
+          <li class="dropdown">
+            <a href="#">Categorias</a>
+            <ul class="dropdown-menu">
+              <li><a href="#"><span class="icon">📚</span>Material Escolar</a></li>
+              <li><a href="#"><span class="icon">👕</span>Uniformes</a></li>
+              <li><a href="#"><span class="icon">📖</span>Livros</a></li>
+              <li><a href="#"><span class="icon">🎒</span>Mochilas</a></li>
+              <li><a href="#"><span class="icon">💻</span>Tecnologia</a></li>
+              <li><a href="#"><span class="icon">🎨</span>Artes</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Ofertas</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="header-center">
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Buscar produtos...">
+        <div class="search-suggestions"></div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <button id="themeToggle" class="theme-toggle" title="Alternar tema">
+        <span class="icon-light">☀️</span>
+        <span class="icon-dark">🌙</span>
+      </button>
+      
+      <button id="cartBtn" class="cart-btn" title="Carrinho">
+        <span class="icon">🛒</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+
+      <div class="user-menu">
+        <button id="userBtn" class="user-btn">
+          <span class="icon">👤</span>
+          <span class="user-name">Minha Conta</span>
         </button>
+        <div class="user-dropdown">
+          <div class="user-header">
+            <span class="icon">👤</span>
+            <span class="guest-text">Bem-vindo!</span>
+            <span class="user-email"></span>
+          </div>
+          <div class="guest-actions">
+            <button id="loginBtn" class="login-btn">
+              <span class="icon">🔑</span>
+              Entrar
+            </button>
+            <button id="registerBtn" class="register-btn">
+              <span class="icon">📝</span>
+              Criar Conta
+            </button>
+          </div>
+          <div class="user-actions" style="display: none;">
+            <a href="#" class="menu-item">
+              <span class="icon">👤</span>
+              Meu Perfil
+            </a>
+            <a href="#" class="menu-item">
+              <span class="icon">📦</span>
+              Meus Pedidos
+            </a>
+            <a href="#" class="menu-item">
+              <span class="icon">❤️</span>
+              Favoritos
+            </a>
+            <a href="#" class="menu-item">
+              <span class="icon">⚙️</span>
+              Configurações
+            </a>
+            <button id="logoutBtn" class="logout-btn">
+              <span class="icon">🚪</span>
+              Sair
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </header>
 
-  <main class="container">
-    <!-- Seção Vendas (padrão) -->
-    <div id="vendasSection" class="section-content">
-      <section class="filters" aria-label="Filtros">
-        <select id="categoryFilter" aria-label="Filtrar por categoria">
-          <option value="">Todas as categorias</option>
-          <option value="material-escolar">Material escolar</option>
-          <option value="livros">Livros</option>
-          <option value="uniformes">Uniformes</option>
-          <option value="tecnologia">Tecnologia</option>
-        </select>
-        <select id="sortFilter" aria-label="Ordenação">
-          <option value="nome-asc">Nome (A→Z)</option>
-          <option value="nome-desc">Nome (Z→A)</option>
-          <option value="preco-asc">Preço (menor)</option>
-          <option value="preco-desc">Preço (maior)</option>
-          <option value="estoque-asc">Estoque (menor)</option>
-          <option value="estoque-desc">Estoque (maior)</option>
-        </select>
-        <button id="adminBtn" class="admin-btn" style="display: none;" aria-label="Painel administrativo" tabindex="0">Admin</button>
-        <div class="export-buttons" style="display: none;" id="exportButtons">
-          <button id="exportCsvBtn" class="export-btn">📊 Exportar CSV</button>
-          <button id="exportJsonBtn" class="export-btn">📄 Exportar JSON</button>
-        </div>
-        <button id="toggleAdvancedFilters" class="filter-toggle-btn" aria-label="Alternar filtros avançados" tabindex="0">🔍 Filtros Avançados</button>
-      </section>
-
-      <!-- Filtros Avançados -->
-      <section class="advanced-filters" id="advancedFilters" style="display: none;" aria-label="Filtros avançados">
-        <h3>Filtros Avançados</h3>
-        <div class="filter-row">
-          <div class="filter-group">
-            <label for="precoMinFilter">Preço Mínimo:</label>
-            <input id="precoMinFilter" type="number" step="0.01" min="0" placeholder="R$ 0,00" aria-label="Preço mínimo" tabindex="0" />
-          </div>
-          <div class="filter-group">
-            <label for="precoMaxFilter">Preço Máximo:</label>
-            <input id="precoMaxFilter" type="number" step="0.01" min="0" placeholder="R$ 999,99" aria-label="Preço máximo" tabindex="0" />
-          </div>
-          <div class="filter-group">
-            <label for="estoqueMinFilter">Estoque Mínimo:</label>
-            <input id="estoqueMinFilter" type="number" min="0" placeholder="0" aria-label="Estoque mínimo" tabindex="0" />
-          </div>
-        </div>
-        <div class="filter-actions">
-          <button id="applyAdvancedFilters" class="apply-filters-btn" aria-label="Aplicar filtros avançados" tabindex="0">Aplicar Filtros</button>
-          <button id="clearAdvancedFilters" class="clear-filters-btn" aria-label="Limpar filtros avançados" tabindex="0">Limpar</button>
-        </div>
-      </section>
-
-      <section class="products-grid" id="productsGrid" aria-live="polite"></section>
-      <nav class="pagination" id="pagination" aria-label="Paginação"></nav>
-    </div>
-
-    <!-- Seção Biblioteca -->
-    <div id="bibliotecaSection" class="section-content" style="display: none;">
-      <section class="filters biblioteca-filters" aria-label="Filtros da Biblioteca">
-        <input id="livroSearchInput" type="text" placeholder="Buscar livros por título, autor ou ISBN..." aria-label="Campo de busca de livros" tabindex="0" />
-        <select id="generoFilter" aria-label="Filtrar por gênero">
-          <option value="">Todos os gêneros</option>
-          <option value="Romance">Romance</option>
-          <option value="Teatro">Teatro</option>
-          <option value="Sociologia">Sociologia</option>
-          <option value="Poesia">Poesia</option>
-          <option value="Crônica">Crônica</option>
-        </select>
-        <select id="livroStatusFilter" aria-label="Filtrar por status do livro" tabindex="0">
-          <option value="">Todos os Status</option>
-          <option value="disponivel">Disponível</option>
-          <option value="emprestado">Emprestado</option>
-        </select>
-        <select id="livroCategoriaFilter" aria-label="Filtrar por categoria do livro" tabindex="0">
-          <option value="">Todas as Categorias</option>
-          <option value="ficcao">Ficção</option>
-          <option value="nao_ficcao">Não-ficção</option>
-          <option value="educativo">Educativo</option>
-          <option value="tecnologia">Tecnologia</option>
-        </select>
-        <select id="livroSortFilter" aria-label="Ordenar livros" tabindex="0">
-          <option value="titulo-asc">Título (A→Z)</option>
-          <option value="titulo-desc">Título (Z→A)</option>
-          <option value="autor-asc">Autor (A→Z)</option>
-          <option value="autor-desc">Autor (Z→A)</option>
-          <option value="ano-asc">Ano (mais antigo)</option>
-          <option value="ano-desc">Ano (mais recente)</option>
-        </select>
-        <button id="adminLivroBtn" class="admin-btn" style="display: none;" aria-label="Adicionar novo livro" tabindex="0">+ Novo Livro</button>
-      </section>
-
-      <section class="books-grid" id="booksGrid" aria-live="polite"></section>
-      <nav class="pagination" id="booksPagination" aria-label="Paginação dos Livros"></nav>
-    </div>
-
-    <!-- Seção Escola -->
-    <div id="escolaSection" class="section-content" style="display: none;">
-      <div class="escola-tabs" role="tablist" aria-label="Seções da escola">
-        <button id="turmasTab" class="tab-btn active" role="tab" aria-selected="true" aria-controls="turmasContent" tabindex="0">👥 Turmas</button>
-        <button id="alunosTab" class="tab-btn" role="tab" aria-selected="false" aria-controls="alunosContent" tabindex="0">👨‍🎓 Alunos</button>
-      </div>
-
-      <!-- Tab Turmas -->
-      <div id="turmasContent" class="tab-content active" role="tabpanel" aria-labelledby="turmasTab">
-        <section class="filters escola-filters" aria-label="Filtros das Turmas">
-          <input id="turmaSearchInput" type="text" placeholder="Buscar turmas..." />
-          <select id="turmaSortFilter" aria-label="Ordenação">
-            <option value="nome-asc">Nome (A→Z)</option>
-            <option value="nome-desc">Nome (Z→A)</option>
-            <option value="capacidade-asc">Capacidade (menor)</option>
-            <option value="capacidade-desc">Capacidade (maior)</option>
-          </select>
-          <button id="adminTurmaBtn" class="admin-btn" style="display: none;" aria-label="Adicionar nova turma" tabindex="0">+ Nova Turma</button>
-        </section>
-        <section class="turmas-grid" id="turmasGrid" aria-live="polite"></section>
-        <nav class="pagination" id="turmasPagination" aria-label="Paginação das Turmas"></nav>
-      </div>
-
-      <!-- Tab Alunos -->
-      <div id="alunosContent" class="tab-content" style="display: none;" role="tabpanel" aria-labelledby="alunosTab">
-        <section class="filters escola-filters" aria-label="Filtros dos Alunos">
-          <input id="alunoSearchInput" type="text" placeholder="Buscar alunos..." />
-          <select id="alunoTurmaFilter" aria-label="Filtrar por turma">
-            <option value="">Todas as turmas</option>
-          </select>
-          <select id="alunoStatusFilter" aria-label="Filtrar por status">
-            <option value="">Todos os status</option>
-            <option value="ativo">Ativo</option>
-            <option value="inativo">Inativo</option>
-          </select>
-          <select id="alunoSortFilter" aria-label="Ordenação">
-            <option value="nome-asc">Nome (A→Z)</option>
-            <option value="nome-desc">Nome (Z→A)</option>
-            <option value="data_nascimento-asc">Idade (mais novo)</option>
-            <option value="data_nascimento-desc">Idade (mais velho)</option>
-          </select>
-          <button id="adminAlunoBtn" class="admin-btn" style="display: none;" aria-label="Adicionar novo aluno" tabindex="0">+ Novo Aluno</button>
-        </section>
-        <section class="alunos-grid" id="alunosGrid" aria-live="polite"></section>
-        <nav class="pagination" id="alunosPagination" aria-label="Paginação dos Alunos"></nav>
-      </div>
-    </div>
-  </main>
-
-  <!-- Modal Carrinho -->
-  <div class="modal" id="cartModal" aria-hidden="true" role="dialog" aria-labelledby="cartModalTitle">
-    <div class="modal-content" role="document">
-      <div class="modal-header">
-        <h2 id="cartModalTitle">Carrinho de Compras</h2>
-        <button id="closeCartBtn" class="close-btn" aria-label="Fechar carrinho" tabindex="0">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div id="cartItems"></div>
-        <div class="cart-summary">
-          <div class="coupon-section">
-            <input id="couponInput" type="text" placeholder="Código do cupom" aria-label="Campo para código do cupom" tabindex="0" />
-            <button id="applyCouponBtn" aria-label="Aplicar cupom de desconto" tabindex="0">Aplicar</button>
-          </div>
-          <div class="total-section">
-            <p><span>Subtotal</span><span id="subtotalValue">R$ 0,00</span></p>
-            <p><span>Desconto</span><span id="discountValue">R$ 0,00</span></p>
-            <h3><span>Total</span><span id="totalValue">R$ 0,00</span></h3>
-          </div>
-          <button id="checkoutBtn" class="checkout-btn" aria-label="Finalizar pedido e confirmar compra" tabindex="0">Finalizar Pedido</button>
-        </div>
-      </div>
+  <!-- Banner -->
+  <div class="banner">
+    <div class="banner-content">
+      <span class="banner-icon">🎉</span>
+      <p>Promoções da Semana - Descontos incríveis com o cupom <strong>ALUNO10</strong>!</p>
+      <button class="banner-cta">Ver Ofertas</button>
     </div>
   </div>
 
-  <!-- Modal Admin -->
-  <div class="modal" id="adminModal" aria-hidden="true" role="dialog" aria-labelledby="adminModalTitle">
-    <div class="modal-content" role="document">
-      <div class="modal-header">
-        <h2 id="adminModalTitle">Gerenciar produtos</h2>
-        <button id="closeAdminBtn" class="close-btn" aria-label="Fechar painel administrativo" tabindex="0">&times;</button>
+  <!-- Grid de Produtos -->
+  <main>
+    <section id="productsGrid">
+      <!-- Produtos carregados via JS -->
+    </section>
+  </main>
+
+  <!-- Carrinho (modal lateral) -->
+  <aside id="cartModal" class="cart-modal">
+    <h2>Meu Carrinho</h2>
+    <div id="cartItems"></div>
+    <div class="cart-total">
+      Total: R$ <span id="cartTotal">0,00</span>
+    </div>
+    <input type="text" id="couponInput" placeholder="Cupom de desconto">
+    <button class="confirm-btn" id="checkoutBtn">Finalizar Pedido</button>
+  </aside>
+
+  <!-- Formulário Admin -->
+  <section class="admin-section">
+    <form id="productForm">
+      <div class="form-header">
+        <h2>Cadastro de Produto</h2>
+        <p>Gerencie seu catálogo de produtos com facilidade. Preencha todos os campos marcados com * para cadastrar um novo item.</p>
       </div>
-      <div class="modal-body">
-        <form id="productForm" role="form">
-          <input type="hidden" id="productId" />
-          <label for="productName">Nome:</label>
-          <input id="productName" type="text" required aria-describedby="productNameHelp" tabindex="0" />
-          <small id="productNameHelp">Digite o nome do produto (3-60 caracteres)</small>
-          
-          <label for="productDescription">Descrição:</label>
-          <textarea id="productDescription" aria-describedby="productDescHelp" tabindex="0"></textarea>
-          <small id="productDescHelp">Descrição opcional do produto</small>
-          
-          <label for="productPrice">Preço:</label>
-          <input id="productPrice" type="number" step="0.01" min="0" required aria-describedby="productPriceHelp" tabindex="0" />
-          <small id="productPriceHelp">Preço em reais (ex: 29.99)</small>
-          
-          <label for="productStock">Estoque:</label>
-          <input id="productStock" type="number" min="0" required aria-describedby="productStockHelp" tabindex="0" />
-          <small id="productStockHelp">Quantidade em estoque</small>
-          
-          <label for="productCategory">Categoria:</label>
-          <select id="productCategory" required aria-describedby="productCategoryHelp" tabindex="0">
-            <option value="">Selecione...</option>
-            <option value="material_escolar">Material Escolar</option>
-            <option value="livros">Livros</option>
-            <option value="uniformes">Uniformes</option>
-            <option value="tecnologia">Tecnologia</option>
-          </select>
-          <small id="productCategoryHelp">Categoria do produto</small>
-          
-          <label for="productSku">SKU (opcional):</label>
-          <input id="productSku" type="text" aria-describedby="productSkuHelp" tabindex="0" />
-          <small id="productSkuHelp">Código único do produto (opcional)</small>
-          
+      
+      <div class="form-group" data-helper="Nome completo do produto como será exibido na loja">
+        <label for="nome">
+          <span class="icon">📝</span>
+          <span class="label-text">Nome do Produto</span>
+          <span class="required-mark">*</span>
+        </label>
+        <input type="text" id="nome" 
+               placeholder="Ex: Caderno Espiral Universitário 96 Folhas" 
+               required minlength="3" maxlength="60">
+      </div>
+
+      <div class="form-group" data-helper="Preço em reais, use ponto para centavos">
+        <label for="preco">
+          <span class="icon">💰</span>
+          <span class="label-text">Preço (R$)</span>
+          <span class="required-mark">*</span>
+        </label>
+        <input type="number" id="preco" 
+               placeholder="0.00" 
+               required min="0.01" step="0.01">
+      </div>
+
+      <div class="form-group" data-helper="Selecione a categoria mais adequada para o produto">
+        <label for="categoria">
+          <span class="icon">📁</span>
+          <span class="label-text">Categoria</span>
+          <span class="required-mark">*</span>
+        </label>
+        <select id="categoria" required>
+          <option value="">Selecione uma categoria</option>
+          <option value="material">📚 Material Escolar</option>
+          <option value="uniforme">👕 Uniforme</option>
+          <option value="livros">📖 Livros</option>
+          <option value="mochilas">🎒 Mochilas</option>
+          <option value="tecnologia">💻 Tecnologia</option>
+          <option value="artes">🎨 Artes</option>
+        </select>
+      </div>
+
+      <div class="form-group" data-helper="Quantidade disponível para venda">
+        <label for="estoque">
+          <span class="icon">📦</span>
+          <span class="label-text">Estoque</span>
+          <span class="required-mark">*</span>
+        </label>
+        <input type="number" id="estoque" 
+               placeholder="0" 
+               required min="0">
+      </div>
+
+      <div class="form-group" style="grid-column: 1 / -1;" 
+           data-helper="Descreva detalhes importantes sobre o produto">
+        <label for="descricao">
+          <span class="icon">📄</span>
+          <span class="label-text">Descrição do Produto</span>
+        </label>
+        <textarea id="descricao" 
+                  placeholder="Descreva as características, especificações e diferenciais do produto..."></textarea>
+      </div>
+
+      <div class="form-group" data-helper="Código único para identificação do produto">
+        <label for="sku">
+          <span class="icon">🏷️</span>
+          <span class="label-text">SKU</span>
+        </label>
+        <input type="text" id="sku" 
+               placeholder="Ex: CAD001"
+               pattern="[A-Za-z0-9-]+"
+               title="Apenas letras, números e hífens">
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-btn">
+          <span class="icon">✖</span>
+          Cancelar
+        </button>
+        <button type="submit">
+          <span class="icon">✔</span>
+          Cadastrar Produto
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Toast container -->
+  <div id="toastContainer"></div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="estoque">Estoque*</label>
+              <input id="estoque" name="estoque" type="number" min="0" required />
+              <div class="error-message" id="err-estoque"></div>
+            </div>
+            <div class="form-group">
+              <label for="categoria">Categoria*</label>
+              <select id="categoria" name="categoria" required>
+                <option value="">Selecione</option>
+                <option value="material-escolar">Material escolar</option>
+                <option value="livros">Livros</option>
+                <option value="uniformes">Uniformes</option>
+                <option value="tecnologia">Tecnologia</option>
+              </select>
+              <div class="error-message" id="err-categoria"></div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="sku">SKU</label>
+              <input id="sku" name="sku" placeholder="Ex.: CAD001" />
+            </div>
+            <div class="form-group">
+              <label for="descricao">Descrição</label>
+              <textarea id="descricao" name="descricao" rows="3"></textarea>
+            </div>
+          </div>
           <div class="form-actions">
-            <button type="button" id="cancelBtn" aria-label="Cancelar edição" tabindex="0">Cancelar</button>
-            <button type="submit" aria-label="Salvar produto" tabindex="0">Salvar</button>
+            <button type="button" id="cancelBtn">Cancelar</button>
+            <button type="submit" id="saveBtn">Salvar</button>
           </div>
         </form>
       </div>
@@ -290,133 +302,6 @@
           <div class="switch-form">
             <span>Já tem uma conta? </span>
             <a id="showLoginForm">Faça login</a>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Admin Livros -->
-  <div class="modal" id="adminLivroModal" aria-hidden="true" role="dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Gerenciar livros</h2>
-        <button class="close-btn" id="closeAdminLivroBtn" aria-label="Fechar">✖</button>
-      </div>
-      <div class="modal-body">
-        <form id="livroForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="titulo">Título*</label>
-              <input id="titulo" name="titulo" required minlength="3" />
-              <div class="error-message" id="err-titulo"></div>
-            </div>
-            <div class="form-group">
-              <label for="autor">Autor*</label>
-              <input id="autor" name="autor" required minlength="3" />
-              <div class="error-message" id="err-autor"></div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="ano">Ano*</label>
-              <input id="ano" name="ano" type="number" min="1900" max="2030" required />
-              <div class="error-message" id="err-ano"></div>
-            </div>
-            <div class="form-group">
-              <label for="genero">Gênero*</label>
-              <select id="genero" name="genero" required>
-                <option value="">Selecione</option>
-                <option value="Romance">Romance</option>
-                <option value="Teatro">Teatro</option>
-                <option value="Sociologia">Sociologia</option>
-                <option value="Poesia">Poesia</option>
-                <option value="Crônica">Crônica</option>
-              </select>
-              <div class="error-message" id="err-genero"></div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="isbn">ISBN</label>
-              <input id="isbn" name="isbn" placeholder="Ex.: 978-85-359-0277-5" />
-            </div>
-          </div>
-          <div class="form-actions">
-            <button type="button" id="cancelLivroBtn">Cancelar</button>
-            <button type="submit" id="saveLivroBtn">Salvar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Admin Turmas -->
-  <div class="modal" id="adminTurmaModal" aria-hidden="true" role="dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Gerenciar turmas</h2>
-        <button class="close-btn" id="closeAdminTurmaBtn" aria-label="Fechar">✖</button>
-      </div>
-      <div class="modal-body">
-        <form id="turmaForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="turmaNome">Nome da Turma*</label>
-              <input id="turmaNome" name="nome" required minlength="3" placeholder="Ex.: 1º Ano A" />
-              <div class="error-message" id="err-turmaNome"></div>
-            </div>
-            <div class="form-group">
-              <label for="turmaCapacidade">Capacidade*</label>
-              <input id="turmaCapacidade" name="capacidade" type="number" min="1" max="50" required />
-              <div class="error-message" id="err-turmaCapacidade"></div>
-            </div>
-          </div>
-          <div class="form-actions">
-            <button type="button" id="cancelTurmaBtn">Cancelar</button>
-            <button type="submit" id="saveTurmaBtn">Salvar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Admin Alunos -->
-  <div class="modal" id="adminAlunoModal" aria-hidden="true" role="dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Gerenciar alunos</h2>
-        <button class="close-btn" id="closeAdminAlunoBtn" aria-label="Fechar">✖</button>
-      </div>
-      <div class="modal-body">
-        <form id="alunoForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="alunoNome">Nome do Aluno*</label>
-              <input id="alunoNome" name="nome" required minlength="3" />
-              <div class="error-message" id="err-alunoNome"></div>
-            </div>
-            <div class="form-group">
-              <label for="alunoDataNascimento">Data de Nascimento*</label>
-              <input id="alunoDataNascimento" name="data_nascimento" type="date" required />
-              <div class="error-message" id="err-alunoDataNascimento"></div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="alunoEmail">Email</label>
-              <input id="alunoEmail" name="email" type="email" />
-            </div>
-            <div class="form-group">
-              <label for="alunoTurma">Turma</label>
-              <select id="alunoTurma" name="turma_id">
-                <option value="">Sem turma</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-actions">
-            <button type="button" id="cancelAlunoBtn">Cancelar</button>
-            <button type="submit" id="saveAlunoBtn">Salvar</button>
           </div>
         </form>
       </div>
