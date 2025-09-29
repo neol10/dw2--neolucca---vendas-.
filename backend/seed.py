@@ -6,10 +6,10 @@ Base.metadata.create_all(bind=engine)
 # Lista expandida: 10 itens por categoria
 produtos = [
     # MATERIAL ESCOLAR (10)
-    {"nome":"Caderno Universitário 10 Matérias","descricao":"Capa dura","preco":29.90,"estoque":60,"categoria":"Material escolar","sku":"MAT-CAD001","imagem_url":"https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=60"},
-    {"nome":"Caderno Brochura 96fl","descricao":"Pautado","preco":12.90,"estoque":80,"categoria":"Material escolar","sku":"MAT-CAD002","imagem_url":"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=60"},
-    {"nome":"Estojo Duplo","descricao":"Poliéster resistente","preco":39.90,"estoque":45,"categoria":"Material escolar","sku":"MAT-EST001","imagem_url":"https://images.unsplash.com/photo-1514477917009-389c76a86b68?auto=format&fit=crop&w=900&q=60"},
-    {"nome":"Mochila Escolar","descricao":"Impermeável","preco":149.90,"estoque":25,"categoria":"Material escolar","sku":"MAT-MOC001","imagem_url":"https://images.unsplash.com/photo-1596495578065-8a6c69fca2b9?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Caderno Universitário 10 Matérias","descricao":"Capa dura","preco":29.90,"estoque":60,"categoria":"material-escolar","sku":"MAT-CAD001","imagem_url":"https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Caderno Brochura 96fl","descricao":"Pautado","preco":12.90,"estoque":80,"categoria":"material-escolar","sku":"MAT-CAD002","imagem_url":"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Estojo Duplo","descricao":"Poliéster resistente","preco":39.90,"estoque":45,"categoria":"material-escolar","sku":"MAT-EST001","imagem_url":"https://images.unsplash.com/photo-1514477917009-389c76a86b68?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Mochila Escolar","descricao":"Impermeável","preco":149.90,"estoque":25,"categoria":"material-escolar","sku":"MAT-MOC001","imagem_url":"https://images.unsplash.com/photo-1596495578065-8a6c69fca2b9?auto=format&fit=crop&w=900&q=60"},
     {"nome":"Lápis HB nº2 (12un)","descricao":"Madeira reflorestada","preco":9.90,"estoque":120,"categoria":"Material escolar","sku":"MAT-LAP001","imagem_url":"https://images.unsplash.com/photo-1502452213786-a5bc0a67e963?auto=format&fit=crop&w=900&q=60"},
     {"nome":"Caneta Esferográfica Azul (3un)","descricao":"Ponta 1.0mm","preco":7.90,"estoque":150,"categoria":"Material escolar","sku":"MAT-CAN001","imagem_url":"https://images.unsplash.com/photo-1527176930608-09cb256ab504?auto=format&fit=crop&w=900&q=60"},
     {"nome":"Borracha Branca","descricao":"Não mancha","preco":3.90,"estoque":200,"categoria":"Material escolar","sku":"MAT-BOR001","imagem_url":"https://images.unsplash.com/photo-1624001553151-1edb8314f49e?auto=format&fit=crop&w=900&q=60"},
@@ -54,16 +54,16 @@ produtos = [
     {"nome":"Headset com Microfone","descricao":"Cancelamento de ruído","preco":219.90,"estoque":18,"categoria":"Tecnologia","sku":"TEC-010","imagem_url":"https://images.unsplash.com/photo-1606229365485-93a3b8ee0381?auto=format&fit=crop&w=900&q=60"},
 
     # ARTE & PAPÉIS (10)
-    {"nome":"Tinta Guache 6 cores","descricao":"Lavável","preco":24.90,"estoque":60,"categoria":"Arte & Papéis","sku":"ART-001","imagem_url":"https://images.unsplash.com/photo-1562577309-4932fdd64cd1?auto=format&fit=crop&w=900&q=60"},
-    {"nome":"Pincel nº 12","descricao":"Cerdas macias","preco":8.90,"estoque":120,"categoria":"Arte & Papéis","sku":"ART-002","imagem_url":"https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=900&q=60"},
-    {"nome":"Papel A4 500fl","descricao":"75g/m²","preco":32.90,"estoque":35,"categoria":"Arte & Papéis","sku":"ART-003","imagem_url":"https://images.unsplash.com/photo-1520975922325-24baf02c8f9b?auto=format&fit=crop&w=900&q=60"},
-    {"nome":"Aquarela Pastilhada","descricao":"12 cores","preco":39.90,"estoque":40,"categoria":"Arte & Papéis","sku":"ART-004","imagem_url":"https://images.unsplash.com/photo-1505575972945-34142e0c6ddb?auto=format&fit=crop&w=900&q=60"},
-    {"nome":"Lápis de Cor 24un","descricao":"Cores vivas","preco":49.90,"estoque":55,"categoria":"Arte & Papéis","sku":"ART-005","imagem_url":"https://images.unsplash.com/photo-1617957771946-0b6a19b87c00?auto=format&fit=crop&w=900&q=60"},
-    {"nome":"Papel Canson A3","descricao":"180g/m²","preco":34.90,"estoque":30,"categoria":"Arte & Papéis","sku":"ART-006","imagem_url":"https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=900&q=60"},
-    {"nome":"Bloco Sulfite A4","descricao":"100 folhas","preco":12.90,"estoque":100,"categoria":"Arte & Papéis","sku":"ART-007","imagem_url":"https://images.unsplash.com/photo-1513185041617-8ab03f83d6c5?auto=format&fit=crop&w=900&q=60"},
-    {"nome":"Cola Bastão","descricao":"10g","preco":4.90,"estoque":140,"categoria":"Arte & Papéis","sku":"ART-008","imagem_url":"https://images.unsplash.com/photo-1528720128808-cf6a32c70a3a?auto=format&fit=crop&w=900&q=60"},
-    {"nome":"Marcador Permanente (4un)","descricao":"Ponta fina","preco":19.90,"estoque":80,"categoria":"Arte & Papéis","sku":"ART-009","imagem_url":"https://images.unsplash.com/photo-1551727974-8af20a3322e4?auto=format&fit=crop&w=900&q=60"},
-    {"nome":"Massinha de Modelar","descricao":"12 cores","preco":22.90,"estoque":65,"categoria":"Arte & Papéis","sku":"ART-010","imagem_url":"https://images.unsplash.com/photo-1605733160314-4f53a3805048?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Tinta Guache 6 cores","descricao":"Lavável","preco":24.90,"estoque":60,"categoria":"arte-papeis","sku":"ART-001","imagem_url":"https://images.unsplash.com/photo-1562577309-4932fdd64cd1?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Pincel nº 12","descricao":"Cerdas macias","preco":8.90,"estoque":120,"categoria":"arte-papeis","sku":"ART-002","imagem_url":"https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Papel A4 500fl","descricao":"75g/m²","preco":32.90,"estoque":35,"categoria":"arte-papeis","sku":"ART-003","imagem_url":"https://images.unsplash.com/photo-1520975922325-24baf02c8f9b?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Aquarela Pastilhada","descricao":"12 cores","preco":39.90,"estoque":40,"categoria":"arte-papeis","sku":"ART-004","imagem_url":"https://images.unsplash.com/photo-1505575972945-34142e0c6ddb?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Lápis de Cor 24un","descricao":"Cores vivas","preco":49.90,"estoque":55,"categoria":"arte-papeis","sku":"ART-005","imagem_url":"https://images.unsplash.com/photo-1617957771946-0b6a19b87c00?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Papel Canson A3","descricao":"180g/m²","preco":34.90,"estoque":30,"categoria":"arte-papeis","sku":"ART-006","imagem_url":"https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Bloco Sulfite A4","descricao":"100 folhas","preco":12.90,"estoque":100,"categoria":"arte-papeis","sku":"ART-007","imagem_url":"https://images.unsplash.com/photo-1513185041617-8ab03f83d6c5?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Cola Bastão","descricao":"10g","preco":4.90,"estoque":140,"categoria":"arte-papeis","sku":"ART-008","imagem_url":"https://images.unsplash.com/photo-1528720128808-cf6a32c70a3a?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Marcador Permanente (4un)","descricao":"Ponta fina","preco":19.90,"estoque":80,"categoria":"arte-papeis","sku":"ART-009","imagem_url":"https://images.unsplash.com/photo-1551727974-8af20a3322e4?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Massinha de Modelar","descricao":"12 cores","preco":22.90,"estoque":65,"categoria":"arte-papeis","sku":"ART-010","imagem_url":"https://images.unsplash.com/photo-1605733160314-4f53a3805048?auto=format&fit=crop&w=900&q=60"},
 ]
 
 db = SessionLocal()

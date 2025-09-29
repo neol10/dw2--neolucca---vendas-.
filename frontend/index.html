@@ -1,229 +1,143 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loja Escolar - Vendas</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loja Escolar • Sistema de Vendas</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- Header -->
-  <header>
-    <div class="header-left">
-      <h1>Loja Escolar</h1>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="#" class="active">Início</a></li>
-          <li><a href="#">Produtos</a></li>
-          <li class="dropdown">
-            <a href="#">Categorias</a>
-            <ul class="dropdown-menu">
-              <li><a href="#"><span class="icon">📚</span>Material Escolar</a></li>
-              <li><a href="#"><span class="icon">👕</span>Uniformes</a></li>
-              <li><a href="#"><span class="icon">📖</span>Livros</a></li>
-              <li><a href="#"><span class="icon">🎒</span>Mochilas</a></li>
-              <li><a href="#"><span class="icon">💻</span>Tecnologia</a></li>
-              <li><a href="#"><span class="icon">🎨</span>Artes</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Ofertas</a></li>
-        </ul>
-      </nav>
-    </div>
-
-    <div class="header-center">
-      <div class="search-bar">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Buscar produtos...">
-        <div class="search-suggestions"></div>
+  <div class="nav">
+    <div class="container nav-in">
+      <div class="brand">NEO • Loja Escolar</div>
+      <div class="search">
+        <input id="searchInput" type="text" placeholder="Buscar produtos..." aria-label="Buscar produtos" />
       </div>
-    </div>
-
-    <div class="header-right">
-      <button id="themeToggle" class="theme-toggle" title="Alternar tema">
-        <span class="icon-light">☀️</span>
-        <span class="icon-dark">🌙</span>
-      </button>
-      
-      <button id="cartBtn" class="cart-btn" title="Carrinho">
-        <span class="icon">🛒</span>
-        <span class="cart-count" id="cartCount">0</span>
-      </button>
-
-      <div class="user-menu">
-        <button id="userBtn" class="user-btn">
-          <span class="icon">👤</span>
-          <span class="user-name">Minha Conta</span>
-        </button>
-        <div class="user-dropdown">
-          <div class="user-header">
-            <span class="icon">👤</span>
-            <span class="guest-text">Bem-vindo!</span>
-            <span class="user-email"></span>
-          </div>
-          <div class="guest-actions">
-            <button id="loginBtn" class="login-btn">
-              <span class="icon">🔑</span>
-              Entrar
-            </button>
-            <button id="registerBtn" class="register-btn">
-              <span class="icon">📝</span>
-              Criar Conta
-            </button>
-          </div>
-          <div class="user-actions" style="display: none;">
-            <a href="#" class="menu-item">
-              <span class="icon">👤</span>
-              Meu Perfil
-            </a>
-            <a href="#" class="menu-item">
-              <span class="icon">📦</span>
-              Meus Pedidos
-            </a>
-            <a href="#" class="menu-item">
-              <span class="icon">❤️</span>
-              Favoritos
-            </a>
-            <a href="#" class="menu-item">
-              <span class="icon">⚙️</span>
-              Configurações
-            </a>
-            <button id="logoutBtn" class="logout-btn">
-              <span class="icon">🚪</span>
-              Sair
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Banner -->
-  <div class="banner">
-    <div class="banner-content">
-      <span class="banner-icon">🎉</span>
-      <p>Promoções da Semana - Descontos incríveis com o cupom <strong>ALUNO10</strong>!</p>
-      <button class="banner-cta">Ver Ofertas</button>
+      <button id="toggleTheme" class="theme-toggle" title="Alternar tema">🌙</button>
+      <button id="loginBtn" class="btn btn-ghost">Entrar</button>
+      <button id="adminBtn" class="btn btn-ghost" style="display:none;">Admin</button>
+      <button id="cartBtn" class="badge-cart">Carrinho <small id="cartBadge">0</small></button>
+      <button id="userMenuBtn" class="btn btn-ghost" style="display:none;"><span id="userMenuName"></span></button>
     </div>
   </div>
 
-  <!-- Grid de Produtos -->
-  <main>
-    <section id="productsGrid">
-      <!-- Produtos carregados via JS -->
-    </section>
-  </main>
+  <section class="container hero">
+    <div class="hero-card">
+      <div>
+        <div class="hero-badge">Frete grátis acima de R$ 199 • Cupom: ALUNO10</div>
+        <h1 class="hero-title">Material escolar para <em>todos os níveis</em></h1>
+        <p class="hero-sub">
+          Encontre tudo o que você precisa para seu sucesso acadêmico em um só lugar.
+          Qualidade, variedade e os melhores preços.
+        </p>
+        <div class="hero-cta">
+          <a href="#catalogo" class="btn btn-primary">Explorar produtos</a>
+          <a href="#sobre" class="btn btn-ghost">Sobre nós</a>
+          <button id="themeBtn" class="theme-toggle">Alternar tema</button>
+        </div>
+      </div>
 
-  <!-- Carrinho (modal lateral) -->
-  <aside id="cartModal" class="cart-modal">
-    <h2>Meu Carrinho</h2>
-    <div id="cartItems"></div>
-    <div class="cart-total">
-      Total: R$ <span id="cartTotal">0,00</span>
+      <img class="hero-img" src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop"
+           alt="Livros, lápis e blocos ABC sobre a mesa">
     </div>
-    <input type="text" id="couponInput" placeholder="Cupom de desconto">
-    <button class="confirm-btn" id="checkoutBtn">Finalizar Pedido</button>
-  </aside>
-
-  <!-- Formulário Admin -->
-  <section class="admin-section">
-    <form id="productForm">
-      <div class="form-header">
-        <h2>Cadastro de Produto</h2>
-        <p>Gerencie seu catálogo de produtos com facilidade. Preencha todos os campos marcados com * para cadastrar um novo item.</p>
-      </div>
-      
-      <div class="form-group" data-helper="Nome completo do produto como será exibido na loja">
-        <label for="nome">
-          <span class="icon">📝</span>
-          <span class="label-text">Nome do Produto</span>
-          <span class="required-mark">*</span>
-        </label>
-        <input type="text" id="nome" 
-               placeholder="Ex: Caderno Espiral Universitário 96 Folhas" 
-               required minlength="3" maxlength="60">
-      </div>
-
-      <div class="form-group" data-helper="Preço em reais, use ponto para centavos">
-        <label for="preco">
-          <span class="icon">💰</span>
-          <span class="label-text">Preço (R$)</span>
-          <span class="required-mark">*</span>
-        </label>
-        <input type="number" id="preco" 
-               placeholder="0.00" 
-               required min="0.01" step="0.01">
-      </div>
-
-      <div class="form-group" data-helper="Selecione a categoria mais adequada para o produto">
-        <label for="categoria">
-          <span class="icon">📁</span>
-          <span class="label-text">Categoria</span>
-          <span class="required-mark">*</span>
-        </label>
-        <select id="categoria" required>
-          <option value="">Selecione uma categoria</option>
-          <option value="material">📚 Material Escolar</option>
-          <option value="uniforme">👕 Uniforme</option>
-          <option value="livros">📖 Livros</option>
-          <option value="mochilas">🎒 Mochilas</option>
-          <option value="tecnologia">💻 Tecnologia</option>
-          <option value="artes">🎨 Artes</option>
-        </select>
-      </div>
-
-      <div class="form-group" data-helper="Quantidade disponível para venda">
-        <label for="estoque">
-          <span class="icon">📦</span>
-          <span class="label-text">Estoque</span>
-          <span class="required-mark">*</span>
-        </label>
-        <input type="number" id="estoque" 
-               placeholder="0" 
-               required min="0">
-      </div>
-
-      <div class="form-group" style="grid-column: 1 / -1;" 
-           data-helper="Descreva detalhes importantes sobre o produto">
-        <label for="descricao">
-          <span class="icon">📄</span>
-          <span class="label-text">Descrição do Produto</span>
-        </label>
-        <textarea id="descricao" 
-                  placeholder="Descreva as características, especificações e diferenciais do produto..."></textarea>
-      </div>
-
-      <div class="form-group" data-helper="Código único para identificação do produto">
-        <label for="sku">
-          <span class="icon">🏷️</span>
-          <span class="label-text">SKU</span>
-        </label>
-        <input type="text" id="sku" 
-               placeholder="Ex: CAD001"
-               pattern="[A-Za-z0-9-]+"
-               title="Apenas letras, números e hífens">
-      </div>
-
-      <div class="form-actions">
-        <button type="button" class="cancel-btn">
-          <span class="icon">✖</span>
-          Cancelar
-        </button>
-        <button type="submit">
-          <span class="icon">✔</span>
-          Cadastrar Produto
-        </button>
-      </div>
-    </form>
   </section>
 
-  <!-- Toast container -->
-  <div id="toastContainer"></div>
+  <main class="container">
+    <section class="highlights" aria-label="Destaques">
+      <div class="highlights-header">
+        <h2>🟦 Destaques</h2>
+        <div class="highlights-controls">
+          <button id="hlPrev" aria-label="Anterior">◀</button>
+          <button id="hlNext" aria-label="Próximo">▶</button>
+        </div>
+      </div>
+      <div class="highlights-viewport" id="highlightsViewport">
+        <div class="highlights-track" id="highlightsTrack" aria-live="polite"></div>
+      </div>
+    </section>
 
-  <script src="scripts.js"></script>
-</body>
-</html>
+    <section class="filters toolbar" aria-label="Filtros">
+      <select id="categoryFilter" class="select" aria-label="Filtrar por categoria">
+        <option value="">Todas as categorias</option>
+        <option value="material-escolar">Material escolar</option>
+        <option value="livros">Livros</option>
+        <option value="uniformes">Uniformes</option>
+        <option value="tecnologia">Tecnologia</option>
+        <option value="arte-papeis">Arte & Papéis</option>
+      </select>
+  <select id="sortFilter" class="select" aria-label="Ordenação">
+        <option value="nome-asc">Nome (A→Z)</option>
+        <option value="nome-desc">Nome (Z→A)</option>
+        <option value="preco-asc">Preço (menor)</option>
+        <option value="preco-desc">Preço (maior)</option>
+        <option value="estoque-asc">Estoque (menor)</option>
+        <option value="estoque-desc">Estoque (maior)</option>
+      </select>
+    </section>
+
+    <section class="category-chips" id="categoryChips" aria-label="Categorias">
+      <button class="chip active" data-cat="">Todas</button>
+      <button class="chip" data-cat="material-escolar">Material escolar</button>
+      <button class="chip" data-cat="livros">Livros</button>
+      <button class="chip" data-cat="uniformes">Uniformes</button>
+      <button class="chip" data-cat="tecnologia">Tecnologia</button>
+      <button class="chip" data-cat="arte-papeis">Arte & Papéis</button>
+    </section>
+
+  <a id="catalogo"></a>
+  <section class="products-grid" id="productsGrid" aria-live="polite"></section>
+    <nav class="pagination" id="pagination" aria-label="Paginação"></nav>
+  </main>
+
+  <!-- Modal Carrinho -->
+  <div class="modal" id="cartModal" aria-hidden="true" role="dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Seu carrinho</h2>
+        <button class="close-btn" id="closeCartBtn" aria-label="Fechar">✖</button>
+      </div>
+      <div class="modal-body">
+        <div id="cartItems"></div>
+        <div class="cart-summary">
+          <div class="coupon-section">
+            <input id="couponInput" type="text" placeholder="Cupom (ex.: ALUNO10)" />
+            <button id="applyCouponBtn">Aplicar</button>
+          </div>
+          <div class="total-section">
+            <p><span>Subtotal</span><span id="subtotalValue">R$ 0,00</span></p>
+            <p><span>Desconto</span><span id="discountValue">R$ 0,00</span></p>
+            <h3><span>Total</span><span id="totalValue">R$ 0,00</span></h3>
+          </div>
+          <button class="checkout-btn" id="checkoutBtn">Finalizar pedido</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Admin -->
+  <div class="modal" id="adminModal" aria-hidden="true" role="dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Gerenciar produtos</h2>
+        <button class="close-btn" id="closeAdminBtn" aria-label="Fechar">✖</button>
+      </div>
+      <div class="modal-body">
+        <form id="productForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nome">Nome*</label>
+              <input id="nome" name="nome" required minlength="3" />
+              <div class="error-message" id="err-nome"></div>
+            </div>
+            <div class="form-group">
+              <label for="preco">Preço* (ex.: 19.90)</label>
+              <input id="preco" name="preco" type="number" step="0.01" required />
+              <div class="error-message" id="err-preco"></div>
+            </div>
+          </div>
           <div class="form-row">
             <div class="form-group">
               <label for="estoque">Estoque*</label>
@@ -238,6 +152,7 @@
                 <option value="livros">Livros</option>
                 <option value="uniformes">Uniformes</option>
                 <option value="tecnologia">Tecnologia</option>
+                <option value="arte-papeis">Arte & Papéis</option>
               </select>
               <div class="error-message" id="err-categoria"></div>
             </div>
@@ -250,6 +165,10 @@
             <div class="form-group">
               <label for="descricao">Descrição</label>
               <textarea id="descricao" name="descricao" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="imagem_url">Imagem (URL)</label>
+              <input id="imagem_url" name="imagem_url" type="url" placeholder="https://..." />
             </div>
           </div>
           <div class="form-actions">
