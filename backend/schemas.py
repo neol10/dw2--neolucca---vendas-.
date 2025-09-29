@@ -37,3 +37,26 @@ class PaginatedProdutos(BaseModel):
     total: int
     page: int
     page_size: int
+
+# ----- Pedido (Order) -----
+class ItemCarrinho(BaseModel):
+    produto_id: int
+    quantidade: int = Field(ge=1)
+
+class ConfirmarCarrinhoIn(BaseModel):
+    cupom: str | None = None
+    itens: list[ItemCarrinho]
+
+class PedidoItemOut(BaseModel):
+    produto_id: int
+    nome: str
+    quantidade: int
+    preco_unitario: Decimal
+
+class PedidoOut(BaseModel):
+    id: int
+    cupom: str | None
+    subtotal: Decimal
+    desconto: Decimal
+    total: Decimal
+    itens: list[PedidoItemOut]
