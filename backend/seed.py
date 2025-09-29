@@ -1,160 +1,90 @@
 from database import Base, engine, SessionLocal
-from models import Produto, Livro, Usuario, Turma, Aluno
-from auth import gerar_senha_hash
-from datetime import date
+from models import Produto
 
 Base.metadata.create_all(bind=engine)
 
+# Lista expandida: 10 itens por categoria
 produtos = [
-    {'nome': 'Caderno Universitário', 'descricao': 'Caderno 200 folhas', 'preco': 15.90, 'categoria': 'Papelaria', 'estoque': 50, 'sku': 'CAD001'},
-    {'nome': 'Caderno Brochura', 'descricao': 'Caderno 96 folhas', 'preco': 8.50, 'categoria': 'Papelaria', 'estoque': 75, 'sku': 'CAD002'},
-    {'nome': 'Caderno Desenho', 'descricao': 'Caderno para desenho A4', 'preco': 12.90, 'categoria': 'Papelaria', 'estoque': 30, 'sku': 'CAD003'},
-    {'nome': 'Caneta Azul', 'descricao': 'Caneta esferográfica azul', 'preco': 2.50, 'categoria': 'Papelaria', 'estoque': 100, 'sku': 'CAN001'},
-    {'nome': 'Caneta Preta', 'descricao': 'Caneta esferográfica preta', 'preco': 2.50, 'categoria': 'Papelaria', 'estoque': 95, 'sku': 'CAN002'},
-    {'nome': 'Caneta Vermelha', 'descricao': 'Caneta esferográfica vermelha', 'preco': 2.50, 'categoria': 'Papelaria', 'estoque': 80, 'sku': 'CAN003'},
-    {'nome': 'Lápis HB', 'descricao': 'Lápis grafite HB', 'preco': 1.20, 'categoria': 'Papelaria', 'estoque': 80, 'sku': 'LAP001'},
-    {'nome': 'Lápis 2B', 'descricao': 'Lápis grafite 2B', 'preco': 1.30, 'categoria': 'Papelaria', 'estoque': 65, 'sku': 'LAP002'},
-    {'nome': 'Lápis de Cor 12 cores', 'descricao': 'Caixa com 12 lápis de cor', 'preco': 18.90, 'categoria': 'Papelaria', 'estoque': 40, 'sku': 'LAP003'},
-    {'nome': 'Borracha Branca', 'descricao': 'Borracha escolar branca', 'preco': 1.50, 'categoria': 'Papelaria', 'estoque': 60, 'sku': 'BOR001'},
-    {'nome': 'Borracha Colorida', 'descricao': 'Borracha escolar colorida', 'preco': 2.00, 'categoria': 'Papelaria', 'estoque': 45, 'sku': 'BOR002'},
-    {'nome': 'Régua 30cm', 'descricao': 'Régua transparente 30cm', 'preco': 3.80, 'categoria': 'Papelaria', 'estoque': 40, 'sku': 'REG001'},
-    {'nome': 'Régua 15cm', 'descricao': 'Régua transparente 15cm', 'preco': 2.50, 'categoria': 'Papelaria', 'estoque': 55, 'sku': 'REG002'},
-    {'nome': 'Esquadro 45°', 'descricao': 'Esquadro de 45 graus', 'preco': 4.90, 'categoria': 'Papelaria', 'estoque': 25, 'sku': 'ESQ001'},
-    {'nome': 'Compasso Escolar', 'descricao': 'Compasso para geometria', 'preco': 12.50, 'categoria': 'Papelaria', 'estoque': 20, 'sku': 'COM001'},
-    {'nome': 'Mochila Escolar', 'descricao': 'Mochila com compartimentos', 'preco': 89.90, 'categoria': 'Acessórios', 'estoque': 25, 'sku': 'MOC001'},
-    {'nome': 'Mochila Infantil', 'descricao': 'Mochila pequena colorida', 'preco': 65.00, 'categoria': 'Acessórios', 'estoque': 18, 'sku': 'MOC002'},
-    {'nome': 'Estojo Duplo', 'descricao': 'Estojo com dois compartimentos', 'preco': 25.50, 'categoria': 'Acessórios', 'estoque': 35, 'sku': 'EST001'},
-    {'nome': 'Estojo Simples', 'descricao': 'Estojo básico', 'preco': 15.90, 'categoria': 'Acessórios', 'estoque': 42, 'sku': 'EST002'},
-    {'nome': 'Calculadora Científica', 'descricao': 'Calculadora para matemática', 'preco': 45.00, 'categoria': 'Eletrônicos', 'estoque': 20, 'sku': 'CAL001'},
-    {'nome': 'Calculadora Básica', 'descricao': 'Calculadora simples', 'preco': 18.50, 'categoria': 'Eletrônicos', 'estoque': 30, 'sku': 'CAL002'},
-    {'nome': 'Apontador Simples', 'descricao': 'Apontador de lápis', 'preco': 1.80, 'categoria': 'Papelaria', 'estoque': 70, 'sku': 'APO001'},
-    {'nome': 'Apontador com Depósito', 'descricao': 'Apontador com reservatório', 'preco': 3.50, 'categoria': 'Papelaria', 'estoque': 50, 'sku': 'APO002'},
-    {'nome': 'Cola Bastão', 'descricao': 'Cola em bastão 20g', 'preco': 4.90, 'categoria': 'Papelaria', 'estoque': 60, 'sku': 'COL001'},
-    {'nome': 'Fita Adesiva', 'descricao': 'Fita adesiva transparente', 'preco': 3.20, 'categoria': 'Papelaria', 'estoque': 45, 'sku': 'FIT001'},
-]
+    # MATERIAL ESCOLAR (10)
+    {"nome":"Caderno Universitário 10 Matérias","descricao":"Capa dura","preco":29.90,"estoque":60,"categoria":"Material escolar","sku":"MAT-CAD001","imagem_url":"https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Caderno Brochura 96fl","descricao":"Pautado","preco":12.90,"estoque":80,"categoria":"Material escolar","sku":"MAT-CAD002","imagem_url":"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Estojo Duplo","descricao":"Poliéster resistente","preco":39.90,"estoque":45,"categoria":"Material escolar","sku":"MAT-EST001","imagem_url":"https://images.unsplash.com/photo-1514477917009-389c76a86b68?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Mochila Escolar","descricao":"Impermeável","preco":149.90,"estoque":25,"categoria":"Material escolar","sku":"MAT-MOC001","imagem_url":"https://images.unsplash.com/photo-1596495578065-8a6c69fca2b9?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Lápis HB nº2 (12un)","descricao":"Madeira reflorestada","preco":9.90,"estoque":120,"categoria":"Material escolar","sku":"MAT-LAP001","imagem_url":"https://images.unsplash.com/photo-1502452213786-a5bc0a67e963?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Caneta Esferográfica Azul (3un)","descricao":"Ponta 1.0mm","preco":7.90,"estoque":150,"categoria":"Material escolar","sku":"MAT-CAN001","imagem_url":"https://images.unsplash.com/photo-1527176930608-09cb256ab504?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Borracha Branca","descricao":"Não mancha","preco":3.90,"estoque":200,"categoria":"Material escolar","sku":"MAT-BOR001","imagem_url":"https://images.unsplash.com/photo-1624001553151-1edb8314f49e?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Apontador com Depósito","descricao":"Lâmina de aço","preco":4.90,"estoque":180,"categoria":"Material escolar","sku":"MAT-APO001","imagem_url":"https://images.unsplash.com/photo-1624001368394-23d05345d022?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Régua 30cm","descricao":"Acrílico","preco":5.90,"estoque":140,"categoria":"Material escolar","sku":"MAT-REG001","imagem_url":"https://images.unsplash.com/photo-1615486364469-d6f6f3d7cf19?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Cola Branca 90g","descricao":"Atóxica","preco":6.90,"estoque":130,"categoria":"Material escolar","sku":"MAT-COL001","imagem_url":"https://images.unsplash.com/photo-1598184277221-37ca0e05b9f2?auto=format&fit=crop&w=900&q=60"},
 
-livros = [
-    dict(titulo='Dom Casmurro', autor='Machado de Assis', ano=1899, genero='Romance', isbn='978-85-359-0277-5'),
-    dict(titulo='O Cortiço', autor='Aluísio Azevedo', ano=1890, genero='Romance', isbn='978-85-359-0123-5'),
-    dict(titulo='Iracema', autor='José de Alencar', ano=1865, genero='Romance', isbn='978-85-359-0456-4'),
-    dict(titulo='O Guarani', autor='José de Alencar', ano=1857, genero='Romance', isbn='978-85-359-0789-3'),
-    dict(titulo='Senhora', autor='José de Alencar', ano=1875, genero='Romance', isbn='978-85-359-0234-8'),
-    dict(titulo='Memórias Póstumas de Brás Cubas', autor='Machado de Assis', ano=1881, genero='Romance', isbn='978-85-359-0567-7'),
-    dict(titulo='O Ateneu', autor='Raul Pompéia', ano=1888, genero='Romance', isbn='978-85-359-0678-9'),
-    dict(titulo='Casa Grande & Senzala', autor='Gilberto Freyre', ano=1933, genero='Sociologia', isbn='978-85-359-0890-5'),
-    dict(titulo='Capitães da Areia', autor='Jorge Amado', ano=1937, genero='Romance', isbn='978-85-359-0345-2'),
-    dict(titulo='Vidas Secas', autor='Graciliano Ramos', ano=1938, genero='Romance', isbn='978-85-359-0456-1'),
-    dict(titulo='O Auto da Compadecida', autor='Ariano Suassuna', ano=1955, genero='Teatro', isbn='978-85-359-0567-4'),
-    dict(titulo='Quincas Borba', autor='Machado de Assis', ano=1891, genero='Romance', isbn='978-85-359-0678-2'),
-    dict(titulo='A Moreninha', autor='Joaquim Manuel de Macedo', ano=1844, genero='Romance', isbn='978-85-359-0789-6'),
-    dict(titulo='Lucíola', autor='José de Alencar', ano=1862, genero='Romance', isbn='978-85-359-0890-8'),
-    dict(titulo='Helena', autor='Machado de Assis', ano=1876, genero='Romance', isbn='978-85-359-0123-9'),
-    dict(titulo='A Escrava Isaura', autor='Bernardo Guimarães', ano=1875, genero='Romance', isbn='978-85-359-0234-1'),
-    dict(titulo='O Mulato', autor='Aluísio Azevedo', ano=1881, genero='Romance', isbn='978-85-359-0345-5'),
-    dict(titulo='Ubirajara', autor='José de Alencar', ano=1874, genero='Romance', isbn='978-85-359-0456-7'),
-    dict(titulo='Til', autor='José de Alencar', ano=1872, genero='Romance', isbn='978-85-359-0567-1'),
-    dict(titulo='Ressurreição', autor='Machado de Assis', ano=1872, genero='Romance', isbn='978-85-359-0678-5'),
-    dict(titulo='A Mão e a Luva', autor='Machado de Assis', ano=1874, genero='Romance', isbn='978-85-359-0789-9'),
-    dict(titulo='Cinco Minutos', autor='José de Alencar', ano=1856, genero='Romance', isbn='978-85-359-0890-2'),
-]
+    # LIVROS (10)
+    {"nome":"Atlas de Ciências","descricao":"Ilustrado","preco":89.90,"estoque":18,"categoria":"Livros","sku":"LIV-001","imagem_url":"https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Gramática Essencial","descricao":"Ensino médio","preco":59.90,"estoque":30,"categoria":"Livros","sku":"LIV-002","imagem_url":"https://images.unsplash.com/photo-1513791055331-36f41e0b9a5e?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Matemática em Exercícios","descricao":"Volume 1","preco":64.90,"estoque":22,"categoria":"Livros","sku":"LIV-003","imagem_url":"https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"História do Brasil","descricao":"Edição atualizada","preco":72.90,"estoque":20,"categoria":"Livros","sku":"LIV-004","imagem_url":"https://images.unsplash.com/photo-1524578271613-d550eacf6090?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Química Fácil","descricao":"Teoria e prática","preco":54.90,"estoque":26,"categoria":"Livros","sku":"LIV-005","imagem_url":"https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Física Essencial","descricao":"Fundamentos","preco":61.90,"estoque":24,"categoria":"Livros","sku":"LIV-006","imagem_url":"https://images.unsplash.com/photo-1543106443-812715ff2b8b?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Biologia Ilustrada","descricao":"Sistemas do corpo","preco":78.90,"estoque":19,"categoria":"Livros","sku":"LIV-007","imagem_url":"https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Geografia Contemporânea","descricao":"Globalização","preco":57.90,"estoque":28,"categoria":"Livros","sku":"LIV-008","imagem_url":"https://images.unsplash.com/photo-1502920514313-52581002a659?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Literatura Brasileira","descricao":"Clássicos","preco":45.90,"estoque":35,"categoria":"Livros","sku":"LIV-009","imagem_url":"https://images.unsplash.com/photo-1526318472351-c75fcf070305?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Inglês para Estudantes","descricao":"Básico ao intermediário","preco":69.90,"estoque":27,"categoria":"Livros","sku":"LIV-010","imagem_url":"https://images.unsplash.com/photo-1474904200416-6b2b7926f789?auto=format&fit=crop&w=900&q=60"},
 
-usuarios = [
-    dict(nome='Neo Lucca Viana e Silva', email='neo.lucca@escola.com', senha_hash=gerar_senha_hash('123456'), is_admin=True),
-    dict(nome='Admin Sistema', email='admin@escola.com', senha_hash=gerar_senha_hash('admin123'), is_admin=True),
-    dict(nome='Bibliotecário', email='biblioteca@escola.com', senha_hash=gerar_senha_hash('biblio123'), is_admin=False),
-]
+    # UNIFORMES (10)
+    {"nome":"Camiseta Escolar","descricao":"Malha fria","preco":39.90,"estoque":70,"categoria":"Uniformes","sku":"UNI-001","imagem_url":"https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Calça Moletom","descricao":"Com punho","preco":69.90,"estoque":40,"categoria":"Uniformes","sku":"UNI-002","imagem_url":"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Agasalho Escolar","descricao":"Jaqueta + Calça","preco":189.90,"estoque":20,"categoria":"Uniformes","sku":"UNI-003","imagem_url":"https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Bermuda Escolar","descricao":"Tecido leve","preco":49.90,"estoque":50,"categoria":"Uniformes","sku":"UNI-004","imagem_url":"https://images.unsplash.com/photo-1516822003754-cca485356ecb?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Meias (par)","descricao":"Algodão","preco":12.90,"estoque":100,"categoria":"Uniformes","sku":"UNI-005","imagem_url":"https://images.unsplash.com/photo-1628453910169-4a5c4e18b820?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Tênis Escolar","descricao":"Solado antiderrapante","preco":199.90,"estoque":18,"categoria":"Uniformes","sku":"UNI-006","imagem_url":"https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Boné Escolar","descricao":"Ajustável","preco":29.90,"estoque":60,"categoria":"Uniformes","sku":"UNI-007","imagem_url":"https://images.unsplash.com/photo-1520975922325-24baf02c8f9b?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Camiseta Manga Longa","descricao":"Conforto térmico","preco":54.90,"estoque":35,"categoria":"Uniformes","sku":"UNI-008","imagem_url":"https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Saia Escolar","descricao":"Modelo plissado","preco":79.90,"estoque":22,"categoria":"Uniformes","sku":"UNI-009","imagem_url":"https://images.unsplash.com/photo-1542718610-a1d656d1884a?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Cardigã Escolar","descricao":"Tricô","preco":119.90,"estoque":15,"categoria":"Uniformes","sku":"UNI-010","imagem_url":"https://images.unsplash.com/photo-1516822003754-cca485356ecb?auto=format&fit=crop&w=900&q=60"},
 
-turmas = [
-    dict(nome='1º Ano A', capacidade=30),
-    dict(nome='1º Ano B', capacidade=28),
-    dict(nome='2º Ano A', capacidade=32),
-    dict(nome='2º Ano B', capacidade=30),
-    dict(nome='3º Ano A', capacidade=25),
-    dict(nome='3º Ano B', capacidade=27),
-    dict(nome='Pré-Vestibular', capacidade=40),
-    dict(nome='Técnico em Informática', capacidade=35),
-]
+    # TECNOLOGIA (10)
+    {"nome":"Fone Bluetooth","descricao":"Over-ear","preco":199.90,"estoque":15,"categoria":"Tecnologia","sku":"TEC-001","imagem_url":"https://images.unsplash.com/photo-1518443882834-96f9f2f3a734?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Mouse sem fio","descricao":"1600dpi","preco":59.90,"estoque":50,"categoria":"Tecnologia","sku":"TEC-002","imagem_url":"https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Teclado compacto","descricao":"ABNT2","preco":119.90,"estoque":20,"categoria":"Tecnologia","sku":"TEC-003","imagem_url":"https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Pendrive 64GB","descricao":"USB 3.1","preco":39.90,"estoque":100,"categoria":"Tecnologia","sku":"TEC-004","imagem_url":"https://images.unsplash.com/photo-1587213811864-46e59f02a2c2?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Carregador 2xUSB 20W","descricao":"Bivolt","preco":69.90,"estoque":40,"categoria":"Tecnologia","sku":"TEC-005","imagem_url":"https://images.unsplash.com/photo-1541562232579-512a21360020?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Cabo HDMI 2.0 2m","descricao":"4K","preco":29.90,"estoque":80,"categoria":"Tecnologia","sku":"TEC-006","imagem_url":"https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Webcam HD","descricao":"Microfone embutido","preco":149.90,"estoque":25,"categoria":"Tecnologia","sku":"TEC-007","imagem_url":"https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Caixa de Som Bluetooth","descricao":"Portátil","preco":129.90,"estoque":30,"categoria":"Tecnologia","sku":"TEC-008","imagem_url":"https://images.unsplash.com/photo-1490376840453-5f616fbebe5b?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Power Bank 10.000mAh","descricao":"USB-C","preco":159.90,"estoque":22,"categoria":"Tecnologia","sku":"TEC-009","imagem_url":"https://images.unsplash.com/photo-1541976076758-347942db1970?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Headset com Microfone","descricao":"Cancelamento de ruído","preco":219.90,"estoque":18,"categoria":"Tecnologia","sku":"TEC-010","imagem_url":"https://images.unsplash.com/photo-1606229365485-93a3b8ee0381?auto=format&fit=crop&w=900&q=60"},
 
-alunos = [
-    dict(nome='Ana Silva Santos', data_nascimento=date(2007, 3, 15), email='ana.silva@email.com'),
-    dict(nome='Bruno Costa Lima', data_nascimento=date(2006, 8, 22), email='bruno.costa@email.com'),
-    dict(nome='Carla Oliveira', data_nascimento=date(2007, 1, 10), email='carla.oliveira@email.com'),
-    dict(nome='Daniel Ferreira', data_nascimento=date(2006, 11, 5), email='daniel.ferreira@email.com'),
-    dict(nome='Eduarda Mendes', data_nascimento=date(2007, 6, 18), email='eduarda.mendes@email.com'),
-    dict(nome='Felipe Rodrigues', data_nascimento=date(2006, 4, 30), email='felipe.rodrigues@email.com'),
-    dict(nome='Gabriela Alves', data_nascimento=date(2007, 9, 12), email='gabriela.alves@email.com'),
-    dict(nome='Henrique Barbosa', data_nascimento=date(2006, 2, 25), email='henrique.barbosa@email.com'),
-    dict(nome='Isabela Cardoso', data_nascimento=date(2007, 7, 8), email='isabela.cardoso@email.com'),
-    dict(nome='João Pedro Souza', data_nascimento=date(2006, 12, 14), email='joao.souza@email.com'),
-    dict(nome='Larissa Martins', data_nascimento=date(2007, 5, 3), email='larissa.martins@email.com'),
-    dict(nome='Mateus Pereira', data_nascimento=date(2006, 10, 20), email='mateus.pereira@email.com'),
-    dict(nome='Natália Gomes', data_nascimento=date(2007, 4, 17), email='natalia.gomes@email.com'),
-    dict(nome='Otávio Ribeiro', data_nascimento=date(2006, 9, 7), email='otavio.ribeiro@email.com'),
-    dict(nome='Priscila Dias', data_nascimento=date(2007, 2, 28), email='priscila.dias@email.com'),
-    dict(nome='Rafael Nascimento', data_nascimento=date(2006, 6, 11), email='rafael.nascimento@email.com'),
-    dict(nome='Sofia Araújo', data_nascimento=date(2007, 11, 24), email='sofia.araujo@email.com'),
-    dict(nome='Thiago Moreira', data_nascimento=date(2006, 1, 16), email='thiago.moreira@email.com'),
-    dict(nome='Vitória Campos', data_nascimento=date(2007, 8, 9), email='vitoria.campos@email.com'),
-    dict(nome='Wesley Teixeira', data_nascimento=date(2006, 3, 2), email='wesley.teixeira@email.com'),
+    # ARTE & PAPÉIS (10)
+    {"nome":"Tinta Guache 6 cores","descricao":"Lavável","preco":24.90,"estoque":60,"categoria":"Arte & Papéis","sku":"ART-001","imagem_url":"https://images.unsplash.com/photo-1562577309-4932fdd64cd1?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Pincel nº 12","descricao":"Cerdas macias","preco":8.90,"estoque":120,"categoria":"Arte & Papéis","sku":"ART-002","imagem_url":"https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Papel A4 500fl","descricao":"75g/m²","preco":32.90,"estoque":35,"categoria":"Arte & Papéis","sku":"ART-003","imagem_url":"https://images.unsplash.com/photo-1520975922325-24baf02c8f9b?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Aquarela Pastilhada","descricao":"12 cores","preco":39.90,"estoque":40,"categoria":"Arte & Papéis","sku":"ART-004","imagem_url":"https://images.unsplash.com/photo-1505575972945-34142e0c6ddb?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Lápis de Cor 24un","descricao":"Cores vivas","preco":49.90,"estoque":55,"categoria":"Arte & Papéis","sku":"ART-005","imagem_url":"https://images.unsplash.com/photo-1617957771946-0b6a19b87c00?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Papel Canson A3","descricao":"180g/m²","preco":34.90,"estoque":30,"categoria":"Arte & Papéis","sku":"ART-006","imagem_url":"https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Bloco Sulfite A4","descricao":"100 folhas","preco":12.90,"estoque":100,"categoria":"Arte & Papéis","sku":"ART-007","imagem_url":"https://images.unsplash.com/photo-1513185041617-8ab03f83d6c5?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Cola Bastão","descricao":"10g","preco":4.90,"estoque":140,"categoria":"Arte & Papéis","sku":"ART-008","imagem_url":"https://images.unsplash.com/photo-1528720128808-cf6a32c70a3a?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Marcador Permanente (4un)","descricao":"Ponta fina","preco":19.90,"estoque":80,"categoria":"Arte & Papéis","sku":"ART-009","imagem_url":"https://images.unsplash.com/photo-1551727974-8af20a3322e4?auto=format&fit=crop&w=900&q=60"},
+    {"nome":"Massinha de Modelar","descricao":"12 cores","preco":22.90,"estoque":65,"categoria":"Arte & Papéis","sku":"ART-010","imagem_url":"https://images.unsplash.com/photo-1605733160314-4f53a3805048?auto=format&fit=crop&w=900&q=60"},
 ]
 
 db = SessionLocal()
 
-# Seed produtos
-if db.query(Produto).count() == 0:
-    for it in itens:
+inseridos = 0
+try:
+    for it in produtos:
+        sku = it.get("sku")
+        existente = None
+        if sku:
+            existente = db.query(Produto).filter(Produto.sku == sku).first()
+        if not existente:
+            existente = db.query(Produto).filter(Produto.nome == it["nome"], Produto.categoria == it["categoria"]).first()
+        if existente:
+            continue
         db.add(Produto(**it))
-    db.commit()
-    print('Banco populado com produtos iniciais.')
-else:
-    print('Produtos já existem.')
-
-# Seed livros
-if db.query(Livro).count() == 0:
-    for livro in livros:
-        db.add(Livro(**livro))
-    db.commit()
-    print('Banco populado com livros iniciais.')
-else:
-    print('Livros já existem.')
-
-# Seed usuários
-if db.query(Usuario).count() == 0:
-    for usuario in usuarios:
-        db.add(Usuario(**usuario))
-    db.commit()
-    print('Banco populado com usuários iniciais.')
-else:
-    print('Usuários já existem.')
-
-# Seed turmas
-if db.query(Turma).count() == 0:
-    for turma in turmas:
-        db.add(Turma(**turma))
-    db.commit()
-    print('Banco populado com turmas iniciais.')
-else:
-    print('Turmas já existem.')
-
-# Seed alunos
-if db.query(Aluno).count() == 0:
-    # Criar alunos sem turma inicialmente
-    for aluno in alunos:
-        db.add(Aluno(**aluno))
-    db.commit()
-    
-    # Matricular alguns alunos em turmas (respeitando capacidade)
-    turmas_db = db.query(Turma).all()
-    alunos_db = db.query(Aluno).all()
-    
-    # Matricular primeiros alunos nas primeiras turmas
-    for i, aluno in enumerate(alunos_db[:15]):  # Matricular 15 dos 20 alunos
-        turma_idx = i % len(turmas_db)  # Distribuir entre as turmas
-        aluno.turma_id = turmas_db[turma_idx].id
-    
-    db.commit()
-    print('Banco populado com alunos iniciais.')
-else:
-    print('Alunos já existem.')
-
-db.close()
+        inseridos += 1
+    if inseridos:
+        db.commit()
+        print(f"Produtos inseridos: {inseridos}")
+    else:
+        print("Nenhum produto novo para inserir. Base já populada.")
+finally:
+    db.close()
